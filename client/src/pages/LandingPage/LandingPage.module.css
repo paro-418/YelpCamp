@@ -66,3 +66,40 @@ li img {
   width: 100%;
   height: 100%;
 }
+
+.heroDiv {
+  display: none;
+}
+
+@media screen and (max-width: 640px) {
+  .leftDiv {
+    padding: 0;
+  }
+  .logo {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  .subContainer {
+    width: 100vw;
+    padding: 2rem 2rem;
+  }
+  .rightDiv {
+    display: none;
+  }
+  .heroDiv {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .subContainer {
+    padding: 1rem;
+  }
+}
