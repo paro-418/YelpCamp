@@ -1,0 +1,68 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+.leftDiv {
+  flex-basis: 60%;
+  padding: 3rem 9rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-top: 6rem;
+}
+
+.description {
+  margin: 1.3rem 0;
+  word-spacing: 0.2rem;
+  line-height: 1.5rem;
+  color: rgb(108, 108, 108);
+}
+
+ul {
+  color: rgb(108, 108, 108);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+li img {
+  height: 1.2rem;
+  margin-right: 1rem;
+}
+
+.btn {
+  background-color: #000;
+  padding: 1rem 1.5rem;
+  border-radius: 0.3rem;
+  margin: 2rem 0;
+}
+
+.Link {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.companiesDiv {
+  color: rgb(108, 108, 108);
+}
+
+.companies {
+  margin-top: 0.6rem;
+}
+
+.rightDiv {
+  flex-basis: 40%;
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+}
