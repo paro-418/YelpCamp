@@ -34,7 +34,7 @@ const LandingPage = () => {
             </li>
           </ul>
           <Button className={classes.btn}>
-            <Link className={classes.Link} to='/campgrounds'>
+            <Link className={classes.Link} to='/campground'>
               View CampGrounds
             </Link>
           </Button>
