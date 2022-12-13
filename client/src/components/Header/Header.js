@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Header.module.css';
+import { Link } from 'react-router-dom';
 import Button from '../Button/Button.js';
 const Header = (props) => {
   const ifLoggedIn = false;
@@ -18,21 +19,35 @@ const Header = (props) => {
           className={classes.hamburger}
         />
         <div className={classes.btnDiv}>
-          <Button className={`${classes.btn}`}>Home</Button>
+          <Button className={`${classes.btn}`}>
+            <Link className={classes.Link} to='/'>
+              Home
+            </Link>
+          </Button>
           <span className={classes.btnSpan}>
             {ifLoggedIn ? (
               <Button className={` ${classes.btn} ${classes.userName}`}>
-                {currentLoggedInUserName}
+                <Link className={classes.Link} to='/profile'>
+                  {currentLoggedInUserName}
+                </Link>
               </Button>
             ) : (
-              <Button className={` ${classes.btn}`}>Login</Button>
+              <Button className={` ${classes.btn}`}>
+                <Link className={classes.Link} to='/login'>
+                  Login
+                </Link>
+              </Button>
             )}
 
             {ifLoggedIn ? (
-              <Button className={`${classes.btn}`}>Logout</Button>
+              <Button className={`${classes.btn} ${classes.logoutBtn}`}>
+                Logout
+              </Button>
             ) : (
               <Button className={`${classes.createAccount} ${classes.btn} `}>
-                Create Account
+                <Link className={classes.Link} to='/signup'>
+                  Create Account
+                </Link>
               </Button>
             )}
           </span>
