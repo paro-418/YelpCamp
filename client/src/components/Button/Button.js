@@ -7,6 +7,7 @@ const Button = (props) => {
         return props.callFunction ? props.callFunction(argument) : '';
       }}
       className={props.className}
+      type={props.type ? props.type : ''}
     >
       {props.children}
     </button>

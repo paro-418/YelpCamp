@@ -14,7 +14,7 @@ const LandingPage = () => {
         </div>
 
         <div className={classes.subContainer}>
-          <h1>Explore the best camps on Earth.</h1>
+          <h1 className={classes.h1}>Explore the best camps on Earth.</h1>
           <p className={classes.description}>
             YelpCamp is a curated list of best camping spots on Earth.
             Unfiltered and Unbiased reviews
