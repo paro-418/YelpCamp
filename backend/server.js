@@ -4,15 +4,11 @@ const cors = require('cors');
 const morgan = require('morgan');
 require('dotenv').config();
 const connectToDatabase = require('./db');
-
+const authRouter = require('./Routes/AuthRoute');
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Received Your Request',
-  });
-});
+app.use('/auth', authRouter);
 
 connectToDatabase();
 const server = app.listen(process.env.PORT, () => {

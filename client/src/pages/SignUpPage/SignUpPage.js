@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classes from './SignUpPage.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import axios from 'axios';
 
 const SignUpPage = () => {
   const alreadyAUser = false;
+  const usernameRef = useRef();
+  const passwordRef = useRef();
+
+  const formSubmitHandler = async (event) => {
+    event.preventDefault();
+    const enteredUsername = usernameRef.current.value;
+    const enteredPassword = passwordRef.current.value;
+
+    try {
+      const result = await axios.post('http://localhost:5000/auth/signup', {
+        username: enteredUsername,
+        password: enteredPassword,
+      });
+
+      const { createdUser } = result.data;
+      // operation after when user created
+      console.log(createdUser);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <main className={classes.main}>
       <div className={classes.formContainer}>
@@ -12,7 +34,7 @@ const SignUpPage = () => {
           <img src='/Assets/Logo.svg' alt='logo' />
           <Link to='/campgrounds'>Back to campgrounds</Link>
         </header>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={formSubmitHandler}>
           <h1 className={classes.h1}>
             Start exploring camps from all around the world.
           </h1>
@@ -27,6 +49,7 @@ const SignUpPage = () => {
               type='text'
               required
               className={classes.input}
+              ref={usernameRef}
             />
             <label htmlFor='password' className={classes.label}>
               password
@@ -37,6 +60,7 @@ const SignUpPage = () => {
               text='password'
               required
               className={classes.input}
+              ref={passwordRef}
             />
           </div>
 
