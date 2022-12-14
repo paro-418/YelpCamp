@@ -1,13 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import classes from './SignUpPage.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import axios from 'axios';
 
 const SignUpPage = () => {
-  const alreadyAUser = false;
+  const apiRoute = `http://localhost:5000`;
+  const [isUser, setIsUser] = useState(true);
   const usernameRef = useRef();
   const passwordRef = useRef();
+
+  const toggleCreateLogin = () => {
+    setIsUser(!isUser);
+  };
+
+  const callAxios = async (endpoint, username, password) => {
+    return await axios.post(`${apiRoute}/auth/${endpoint}`, {
+      username,
+      password,
+    });
+  };
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -15,16 +27,19 @@ const SignUpPage = () => {
     const enteredPassword = passwordRef.current.value;
 
     try {
-      const result = await axios.post('http://localhost:5000/auth/signup', {
-        username: enteredUsername,
-        password: enteredPassword,
-      });
+      let result;
+      if (isUser) {
+        result = await callAxios('login', enteredUsername, enteredPassword);
+      } else {
+        result = await callAxios('signup', enteredUsername, enteredPassword);
+      }
 
       const { createdUser } = result.data;
+      console.log(result.data);
       // operation after when user created
       console.log(createdUser);
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data.message);
     }
   };
   return (
@@ -64,7 +79,7 @@ const SignUpPage = () => {
             />
           </div>
 
-          {alreadyAUser ? (
+          {isUser ? (
             <Button className={classes.submitBtn} type='submit'>
               Login
             </Button>
@@ -74,15 +89,25 @@ const SignUpPage = () => {
             </Button>
           )}
         </form>
-        {alreadyAUser ? (
+        {isUser ? (
           <p>
             Not a user yet? &nbsp;
-            <Button className={classes.quesBtn}>Create an account</Button>
+            <Button
+              callFunction={toggleCreateLogin}
+              className={classes.quesBtn}
+            >
+              Create an account
+            </Button>
           </p>
         ) : (
           <p>
             Already a user? &nbsp;
-            <Button className={classes.quesBtn}>Sign in</Button>
+            <Button
+              callFunction={toggleCreateLogin}
+              className={classes.quesBtn}
+            >
+              Sign in
+            </Button>
           </p>
         )}
       </div>
