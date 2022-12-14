@@ -8,7 +8,7 @@ const Review = () => {
         <h3>name</h3>
         <time>13h ago</time>
       </div>
-      <blockquote>
+      <blockquote className={classes.blockquote}>
         some good or bad review by someone ome good or bad review by someone
         good or bad review by someone ome good or bad review by someone ome good
         or bad review by someone ome good or bad review by someone
