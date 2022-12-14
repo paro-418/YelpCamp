@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import AddCommentPage from './pages/AddCommentPage/AddCommentPage.js';
+import AddNewCampGroundPage from './pages/AddNewCampGroundPage/AddNewCampGroundPage.js';
 import CampGroundPage from './pages/CampGroundPage/CampGroundPage.js';
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SearchPage from './pages/SearchPage/SearchPage.js';
@@ -11,6 +12,10 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/campgrounds' element={<CampGroundPage />} />
+        <Route
+          path='/campgrounds/add-campground'
+          element={<AddNewCampGroundPage />}
+        />
         <Route path='/post-review' element={<AddCommentPage />} />
         <Route path='/search' element={<SearchPage />} />
         <Route path='/signup' element={<SignUpPage />} />

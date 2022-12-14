@@ -15,7 +15,6 @@ header {
 }
 
 .btnDiv {
-  /* border: 1px solid red; */
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -75,7 +74,6 @@ header {
     flex-grow: 0;
     flex-basis: 7%;
     height: 2rem;
-    /* border: 2px solid rgb(255, 0, 153); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,7 +83,6 @@ header {
     gap: 0;
   }
   .hamburger {
-    /* border: 2px solid blue; */
     z-index: 1;
   }
   .checkbox {
@@ -102,9 +99,8 @@ header {
 
   .btn {
     margin: 0.5rem;
-    border: 1px solid #000;
+    border: 1px solid rgb(135, 135, 135);
     width: 100%;
-    padding: 1rem;
     border-radius: 0.21rem;
   }
 
@@ -134,6 +130,8 @@ header {
   .btnSpan {
     flex-direction: column;
     padding: 0;
+    gap: 2rem;
+    margin-top: 0.8rem;
     width: 100%;
   }
 }
