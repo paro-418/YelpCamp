@@ -25,7 +25,7 @@ const SearchPage = () => {
           />
           <Button className={classes.searchBtn}>search</Button>
         </form>
-        <Link>Or add your own campground</Link>
+        <Link to='/campgrounds/add-campground'>Or add your own campground</Link>
       </div>
       <div className={classes.cardContainer}>
         <Card />

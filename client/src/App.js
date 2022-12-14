@@ -11,13 +11,13 @@ function App() {
     <div className='App'>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/campgrounds' element={<CampGroundPage />} />
+        <Route path='/campgrounds' element={<SearchPage />} />
         <Route
           path='/campgrounds/add-campground'
           element={<AddNewCampGroundPage />}
         />
+        <Route path='/campgrounds/:campId' element={<CampGroundPage />} />
         <Route path='/post-review' element={<AddCommentPage />} />
-        <Route path='/search' element={<SearchPage />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<SignUpPage />} />
       </Routes>
