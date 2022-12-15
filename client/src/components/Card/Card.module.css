@@ -10,7 +10,6 @@
 }
 
 .imageContainer {
-  /* border: 2px solid red; */
   border-radius: 0.2rem;
   overflow: hidden;
 }
@@ -27,6 +26,7 @@
   border: none;
   border-radius: 0.3rem;
   overflow: hidden;
+  margin-top: auto;
 }
 
 .Link {

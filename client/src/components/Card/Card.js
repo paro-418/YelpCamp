@@ -4,22 +4,20 @@ import { Link } from 'react-router-dom';
 
 import React from 'react';
 
-const Card = () => {
+const Card = ({ campground }) => {
   return (
     <div className={classes.card}>
       <div className={classes.imageContainer}>
         <img
-          src='/Assets/CampImages/HighQuality-Images/MountUlap.png'
-          alt='camp'
+          src={campground.campImage}
+          alt={campground.campName}
           className={classes.campImage}
         />
       </div>
-      <h4 className={classes.campName}>Mount Ulap</h4>
-      <p className={classes.description}>
-        mount Ulap is very good place to visit
-      </p>
+      <h4 className={classes.campName}>{campground.campName}</h4>
+      <p className={classes.description}>{campground.campDescription}</p>
       <Button className={classes.btn}>
-        <Link to='Mount-Ulap' className={classes.Link}>
+        <Link to={campground.campName} className={classes.Link}>
           View CampGround
         </Link>
       </Button>
