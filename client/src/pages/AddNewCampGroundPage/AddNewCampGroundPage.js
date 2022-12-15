@@ -1,13 +1,13 @@
 import classes from './AddNewCampGroundPage.module.css';
-
+import { sendNewCampground } from '../../Store/campground-slice';
 import React, { useRef } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Button from '../../components/Button/Button';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const AddNewCampGroundPage = () => {
-  const apiRoute = 'http://localhost:5000';
+  const dispatch = useDispatch();
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
@@ -15,26 +15,18 @@ const AddNewCampGroundPage = () => {
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-
-    try {
-      const result = await axios.post(
-        `${apiRoute}/campgrounds/add-campground`,
-        {
-          campImage: imageRef.current.value,
-          price: priceRef.current.value,
-          campDescription: descriptionRef.current.value,
-          campName: nameRef.current.value,
-        }
-      );
-
-      console.log(result);
-      imageRef.current.value = '';
-      descriptionRef.current.value = '';
-      nameRef.current.value = '';
-      priceRef.current.value = '';
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(
+      sendNewCampground({
+        campImage: imageRef.current.value,
+        price: priceRef.current.value,
+        campDescription: descriptionRef.current.value,
+        campName: nameRef.current.value,
+      })
+    );
+    imageRef.current.value = '';
+    descriptionRef.current.value = '';
+    nameRef.current.value = '';
+    priceRef.current.value = '';
   };
   return (
     <main className={classes.main}>
