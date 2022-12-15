@@ -9,7 +9,7 @@ const Card = () => {
     <div className={classes.card}>
       <div className={classes.imageContainer}>
         <img
-          src='/Assets/Camp Images/HighQuality-Images/MountUlap.png'
+          src='/Assets/CampImages/HighQuality-Images/MountUlap.png'
           alt='camp'
           className={classes.campImage}
         />
@@ -19,7 +19,9 @@ const Card = () => {
         mount Ulap is very good place to visit
       </p>
       <Button className={classes.btn}>
-        <Link to='Mount-Ulap' className={classes.Link}>View CampGround</Link>
+        <Link to='Mount-Ulap' className={classes.Link}>
+          View CampGround
+        </Link>
       </Button>
     </div>
   );
