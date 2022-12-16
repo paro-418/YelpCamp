@@ -22,6 +22,9 @@ const campSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    createdBy: {
+      type: String,
+    },
   },
   {
     timeStamps: true,

@@ -17,7 +17,10 @@ function App() {
           element={<AddNewCampGroundPage />}
         />
         <Route path='/campgrounds/:campId' element={<CampGroundPage />} />
-        <Route path='/post-review' element={<AddCommentPage />} />
+        <Route
+          path='campgrounds/post-review/:campId'
+          element={<AddCommentPage />}
+        />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<SignUpPage />} />
       </Routes>

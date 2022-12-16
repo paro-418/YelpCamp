@@ -17,7 +17,7 @@ const Card = ({ campground }) => {
       <h4 className={classes.campName}>{campground.campName}</h4>
       <p className={classes.description}>{campground.campDescription}</p>
       <Button className={classes.btn}>
-        <Link to={campground.campName} className={classes.Link}>
+        <Link to={`/campgrounds/${campground._id}`} className={classes.Link}>
           View CampGround
         </Link>
       </Button>

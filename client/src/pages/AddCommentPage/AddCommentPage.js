@@ -4,8 +4,13 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Button from '../../components/Button/Button';
+import { useParams } from 'react-router-dom';
+import { useRef } from 'react';
 
 const AddCommentPage = () => {
+  const { campId } = useParams();
+  const reviewRef = useRef();
+  console.log(campId);
   return (
     <main className={classes.main}>
       <Header />
