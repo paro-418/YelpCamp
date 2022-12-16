@@ -2,9 +2,11 @@ import React from 'react';
 import classes from './Header.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { userSliceActions } from '../../Store/user-slice';
 const Header = (props) => {
-  const ifLoggedIn = false;
-  const currentLoggedInUserName = 'paro';
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userReducers);
   return (
     <header className={props.header}>
       <div className={classes.logoDiv}>
@@ -25,10 +27,10 @@ const Header = (props) => {
             </Link>
           </Button>
           <span className={classes.btnSpan}>
-            {ifLoggedIn ? (
+            {userInfo.isLoggedIn ? (
               <Button className={` ${classes.btn} ${classes.userName}`}>
                 <Link className={classes.Link} to='/profile'>
-                  {currentLoggedInUserName}
+                  {userInfo.username}
                 </Link>
               </Button>
             ) : (
@@ -39,8 +41,11 @@ const Header = (props) => {
               </Button>
             )}
 
-            {ifLoggedIn ? (
-              <Button className={`${classes.btn} ${classes.logoutBtn}`}>
+            {userInfo.isLoggedIn ? (
+              <Button
+                callFunction={() => dispatch(userSliceActions.logoutUser())}
+                className={`${classes.btn} ${classes.logoutBtn}`}
+              >
                 Logout
               </Button>
             ) : (
