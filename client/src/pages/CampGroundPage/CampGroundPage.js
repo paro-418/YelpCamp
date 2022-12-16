@@ -6,8 +6,11 @@ import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const CampGroundPage = () => {
+  const allReviews = useSelector((state) => state.reviewReducers.allReviews);
+  console.log(allReviews);
   const { campId } = useParams();
   const [campInfo, setCampInfo] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -57,10 +60,9 @@ const CampGroundPage = () => {
               </article>
             </div>
             <div className={classes.reviews}>
-              <Review />
-              <Review />
-              <Review />
-              <Review />
+              {allReviews.map((review) => (
+                <Review key={review.reviewId} review={review} />
+              ))}
               <Button className={classes.reviewBtn}>
                 <Link
                   to={`/campgrounds/post-review/${campId}`}
