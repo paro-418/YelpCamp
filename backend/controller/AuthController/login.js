@@ -35,6 +35,7 @@ module.exports.login = async (req, res, next) => {
       message: 'Successfully logged in',
       loggedInUser: {
         username: userExist.username,
+        userId: userExist._id,
         token,
       },
     });

@@ -2,44 +2,36 @@ import React, { useRef, useState } from 'react';
 import classes from './SignUpPage.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { requestLogin, requestCreate } from '../../Store/user-slice';
 
 const SignUpPage = () => {
-  const apiRoute = `http://localhost:5000`;
-  const [isUser, setIsUser] = useState(true);
+  const dispatch = useDispatch();
+  // this state is to toggle between create or sing in function
+  const [createOrLogin, setSetCreateOrLogin] = useState(true);
   const usernameRef = useRef();
   const passwordRef = useRef();
 
-  const toggleCreateLogin = () => {
-    setIsUser(!isUser);
+  const toggleCreateOrLogin = () => {
+    setSetCreateOrLogin(!createOrLogin);
   };
 
-  const callAxios = async (endpoint, username, password) => {
-    return await axios.post(`${apiRoute}/auth/${endpoint}`, {
-      username,
-      password,
-    });
-  };
-
-  const formSubmitHandler = async (event) => {
+  const formSubmitHandler = async (event, endpoint) => {
     event.preventDefault();
-    const enteredUsername = usernameRef.current.value;
-    const enteredPassword = passwordRef.current.value;
-
-    try {
-      let result;
-      if (isUser) {
-        result = await callAxios('login', enteredUsername, enteredPassword);
-      } else {
-        result = await callAxios('signup', enteredUsername, enteredPassword);
-      }
-
-      const { createdUser } = result.data;
-      console.log(result.data);
-      // operation after when user created
-      console.log(createdUser);
-    } catch (err) {
-      console.log(err.response.data.message);
+    if (createOrLogin) {
+      dispatch(
+        requestLogin({
+          username: usernameRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
+    } else {
+      dispatch(
+        requestCreate({
+          username: usernameRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
     }
   };
   return (
@@ -79,7 +71,7 @@ const SignUpPage = () => {
             />
           </div>
 
-          {isUser ? (
+          {createOrLogin ? (
             <Button className={classes.submitBtn} type='submit'>
               Login
             </Button>
@@ -89,11 +81,11 @@ const SignUpPage = () => {
             </Button>
           )}
         </form>
-        {isUser ? (
+        {createOrLogin ? (
           <p>
             Not a user yet? &nbsp;
             <Button
-              callFunction={toggleCreateLogin}
+              callFunction={toggleCreateOrLogin}
               className={classes.quesBtn}
             >
               Create an account
@@ -103,7 +95,7 @@ const SignUpPage = () => {
           <p>
             Already a user? &nbsp;
             <Button
-              callFunction={toggleCreateLogin}
+              callFunction={toggleCreateOrLogin}
               className={classes.quesBtn}
             >
               Sign in
