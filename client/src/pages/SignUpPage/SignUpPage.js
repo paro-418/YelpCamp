@@ -16,7 +16,7 @@ const SignUpPage = () => {
     setSetCreateOrLogin(!createOrLogin);
   };
 
-  const formSubmitHandler = async (event, endpoint) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
     if (createOrLogin) {
       dispatch(
