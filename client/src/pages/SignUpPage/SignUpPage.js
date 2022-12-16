@@ -1,12 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './SignUpPage.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { useDispatch } from 'react-redux';
 import { requestLogin, requestCreate } from '../../Store/user-slice';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loggingSuccessful = useSelector(
+    (state) => state.userReducers.isLoggedIn
+  );
+  useEffect(() => {
+    if (loggingSuccessful) {
+      navigate('/campgrounds');
+    }
+  }, [loggingSuccessful, navigate]);
+
+  
   // this state is to toggle between create or sing in function
   const [createOrLogin, setSetCreateOrLogin] = useState(true);
   const usernameRef = useRef();
