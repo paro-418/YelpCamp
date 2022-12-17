@@ -15,11 +15,10 @@ const SignUpPage = () => {
   );
   useEffect(() => {
     if (loggingSuccessful) {
-      navigate('/campgrounds');
+      navigate(-1);
     }
   }, [loggingSuccessful, navigate]);
 
-  
   // this state is to toggle between create or sing in function
   const [createOrLogin, setSetCreateOrLogin] = useState(true);
   const usernameRef = useRef();

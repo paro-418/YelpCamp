@@ -12,22 +12,31 @@ const reviewSlice = createSlice({
     setAllReviews(state, action) {
       state.allReviews = action.payload;
     },
-    addReviewInArray(state, action) {
-      state.allReviews.push(action.payload);
-    },
   },
 });
 
-export const postReview = (reviewInfo) => {
+export const postReview = (reviewAndFunction) => {
+  return async () => {
+    try {
+      await axios.post(
+        `http://localhost:5000/campgrounds/review/post-review/${reviewAndFunction.review.reviewedCamp}`,
+        reviewAndFunction.review
+      );
+      reviewAndFunction.navigate(-1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const fetchAllReviews = (campId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/campgrounds/post-review/${reviewInfo.reviewedCamp}`,
-        reviewInfo
+      const response = await axios.get(
+        `http://localhost:5000/campgrounds/review/get-reviews/${campId}`
       );
-      dispatch(
-        reviewSliceActions.addReviewInArray(response.data.createdReview)
-      );
+
+      dispatch(reviewSliceActions.setAllReviews(response.data.allReviews));
     } catch (err) {
       console.log(err);
     }

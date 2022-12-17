@@ -6,11 +6,12 @@ import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllReviews } from '../../Store/review-slice';
 
 const CampGroundPage = () => {
   const allReviews = useSelector((state) => state.reviewReducers.allReviews);
-  console.log(allReviews);
+  const dispatch = useDispatch();
   const { campId } = useParams();
   const [campInfo, setCampInfo] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,10 @@ const CampGroundPage = () => {
     };
     fetchCampInfo();
   }, [campId]);
+
+  useEffect(() => {
+    dispatch(fetchAllReviews(campId));
+  }, [dispatch, campId]);
   return (
     <Fragment>
       <Header header={classes.header} />
@@ -61,11 +66,11 @@ const CampGroundPage = () => {
             </div>
             <div className={classes.reviews}>
               {allReviews.map((review) => (
-                <Review key={review.reviewId} review={review} />
+                <Review key={review._id} review={review} />
               ))}
               <Button className={classes.reviewBtn}>
                 <Link
-                  to={`/campgrounds/post-review/${campId}`}
+                  to={`/campgrounds/review/post-review/${campId}`}
                   className={classes.Link}
                 >
                   <img src='/Assets/Chat Bubble.svg' alt='add review button' />

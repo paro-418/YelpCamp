@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use('/auth', authRouter);
 app.use('/campgrounds', campGroundRouter);
-app.use('/campgrounds/post-review', reviewRouter);
+app.use('/campgrounds/review', reviewRouter);
 
 connectToDatabase();
 const server = app.listen(process.env.PORT, () => {

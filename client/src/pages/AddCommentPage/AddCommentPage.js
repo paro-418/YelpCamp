@@ -1,5 +1,4 @@
 import classes from './AddCommentPage.module.css';
-
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -8,8 +7,10 @@ import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { postReview } from '../../Store/review-slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const AddCommentPage = () => {
+  const navigate = useNavigate();
   const { campId } = useParams();
   const dispatch = useDispatch();
   const currentLoggedInUserId = useSelector(
@@ -24,10 +25,13 @@ const AddCommentPage = () => {
     event.preventDefault();
     dispatch(
       postReview({
-        review: reviewRef.current.value,
-        reviewerId: currentLoggedInUserId,
-        reviewedCamp: campId,
-        reviewerName: currentLoggedInUserName,
+        review: {
+          review: reviewRef.current.value,
+          reviewerId: currentLoggedInUserId,
+          reviewedCamp: campId,
+          reviewerName: currentLoggedInUserName,
+        },
+        navigate,
       })
     );
   };
