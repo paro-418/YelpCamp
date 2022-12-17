@@ -25,6 +25,12 @@
   margin: 1.5rem 0 1rem 0;
 }
 
+.select {
+  padding: 0.7rem;
+  font-size: 1rem;
+  border-radius: 0.2rem;
+}
+
 .input,
 .textarea {
   padding: 0.7rem;

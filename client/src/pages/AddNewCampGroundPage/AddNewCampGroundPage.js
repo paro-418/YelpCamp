@@ -4,14 +4,19 @@ import React, { useRef } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Button from '../../components/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Select from '../../components/Select/Select';
 
 const AddNewCampGroundPage = () => {
   const dispatch = useDispatch();
+  const categories = useSelector(
+    (state) => state.campgroundReducers.categories
+  );
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
   const descriptionRef = useRef();
+  const categoryRef = useRef();
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
@@ -21,6 +26,7 @@ const AddNewCampGroundPage = () => {
         price: priceRef.current.value,
         campDescription: descriptionRef.current.value,
         campName: nameRef.current.value,
+        category: categoryRef.current.value,
       })
     );
     imageRef.current.value = '';
@@ -65,6 +71,16 @@ const AddNewCampGroundPage = () => {
             id='image'
             className={classes.input}
             ref={imageRef}
+          />
+          <label htmlFor='category' className={classes.label}>
+            Category
+          </label>
+          <Select
+            reference={categoryRef}
+            className={classes.select}
+            id='category'
+            name='category'
+            options={categories}
           />
           <label htmlFor='description' className={classes.label}>
             Description

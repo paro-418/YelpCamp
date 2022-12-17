@@ -2,9 +2,9 @@ const Camps = require('../../models/CampModel');
 
 module.exports.addCampground = async (req, res, next) => {
   try {
-    const { campName, price, campImage, campDescription } = req.body;
+    const { campName, price, campImage, category, campDescription } = req.body;
 
-    if (!campDescription || !price || !campImage || !campName) {
+    if (!campDescription || !price || !campImage || !campName || !category) {
       return res.status(400).json({
         message: 'Insufficient Data',
       });
@@ -15,6 +15,7 @@ module.exports.addCampground = async (req, res, next) => {
       campImage,
       campName,
       price,
+      category,
     });
 
     res.status(200).json({

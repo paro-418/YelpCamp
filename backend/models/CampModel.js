@@ -22,6 +22,9 @@ const campSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+    },
     createdBy: {
       type: String,
     },

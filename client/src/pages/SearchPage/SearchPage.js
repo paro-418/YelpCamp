@@ -1,20 +1,33 @@
 import classes from './SearchPage.module.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Button from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllCamps } from '../../Store/campground-slice';
+import {
+  fetchAllCamps,
+  fetchSpecificCamps,
+} from '../../Store/campground-slice';
+import Select from '../../components/Select/Select';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
   const allCamps = useSelector((state) => state.campgroundReducers.allCamps);
-
+  const categories = useSelector(
+    (state) => state.campgroundReducers.categories
+  );
+  const categoryRef = useRef();
   useEffect(() => {
     dispatch(fetchAllCamps());
   }, [dispatch]);
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const selected = categoryRef.current.value;
+    dispatch(fetchSpecificCamps(selected));
+  };
   return (
     <main className={classes.main}>
       <Header />
@@ -24,13 +37,18 @@ const SearchPage = () => {
           View our hand-picked campground from all over the world, or add your
           own.
         </p>
-        <form className={classes.form}>
-          <input
-            type='text'
-            placeholder='Search for camps'
-            className={classes.input}
+        <form className={classes.form} onSubmit={formSubmitHandler}>
+          <Select
+            reference={categoryRef}
+            className={classes.select}
+            id='category'
+            name='category'
+            options={categories}
+            defaultOption='All Campgrounds'
           />
-          <Button className={classes.searchBtn}>search</Button>
+          <Button type='submit' className={classes.searchBtn}>
+            search
+          </Button>
         </form>
         <Link to='/campgrounds/add-campground'>Or add your own campground</Link>
       </div>

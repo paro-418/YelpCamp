@@ -1,7 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const campsInitialState = { allCamps: [] };
+const campsInitialState = {
+  allCamps: [],
+  categories: [
+    'mountain',
+    'beach',
+    'forest',
+    'riverside',
+    'snow',
+    'grassland',
+    'waterfall',
+    'island',
+  ],
+};
 
 const campgroundSlice = createSlice({
   initialState: campsInitialState,
@@ -26,18 +38,33 @@ export const fetchAllCamps = () => {
   };
 };
 
+export const fetchSpecificCamps = (category) => {
+  return async (dispatch) => {
+    try {
+      if (category === '#') {
+        return dispatch(fetchAllCamps());
+      }
+      const response = await axios.get(
+        `http://localhost:5000/campgrounds/category/${category}`
+      );
+      dispatch(campgroundSlice.actions.setAllCamps(response.data.camps));
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const sendNewCampground = (newCampGround) => {
   return async (dispatch) => {
     try {
-      await axios.post(
-        `http://localhost:5000/campgrounds/add-campground`,
-        {
-          campImage: newCampGround.campImage,
-          campName: newCampGround.campName,
-          price: newCampGround.price,
-          campDescription: newCampGround.campDescription,
-        }
-      );
+      await axios.post(`http://localhost:5000/campgrounds/add-campground`, {
+        campImage: newCampGround.campImage,
+        campName: newCampGround.campName,
+        price: newCampGround.price,
+        campDescription: newCampGround.campDescription,
+        category: newCampGround.category,
+      });
       dispatch(fetchAllCamps());
     } catch (err) {
       console.log(err);
