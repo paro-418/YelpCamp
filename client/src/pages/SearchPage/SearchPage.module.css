@@ -22,14 +22,15 @@
 }
 
 .cardContainer {
+  border: 1px solid rgb(220, 220, 220);
   border-radius: 0.2rem;
   flex-grow: 1;
   overflow: hidden;
   display: flex;
-  justify-content: start;
   gap: 2rem;
   flex-wrap: wrap;
   margin: 2rem 0;
+  padding: 1rem;
 }
 .p {
   width: 30%;
