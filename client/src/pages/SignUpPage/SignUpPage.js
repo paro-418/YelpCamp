@@ -6,8 +6,10 @@ import { useDispatch } from 'react-redux';
 import { requestLogin, requestCreate } from '../../Store/user-slice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Cookie from 'universal-cookie';
 
 const SignUpPage = () => {
+  const cookies = new Cookie();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggingSuccessful = useSelector(
@@ -33,15 +35,21 @@ const SignUpPage = () => {
     if (createOrLogin) {
       dispatch(
         requestLogin({
-          username: usernameRef.current.value,
-          password: passwordRef.current.value,
+          credentials: {
+            username: usernameRef.current.value,
+            password: passwordRef.current.value,
+          },
+          storeCookieFn: cookies,
         })
       );
     } else {
       dispatch(
         requestCreate({
-          username: usernameRef.current.value,
-          password: passwordRef.current.value,
+          credentials: {
+            username: usernameRef.current.value,
+            password: passwordRef.current.value,
+          },
+          storeCookieFn: cookies,
         })
       );
     }

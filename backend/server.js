@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
@@ -7,6 +8,7 @@ const authRouter = require('./Routes/AuthRoute');
 const campGroundRouter = require('./Routes/CampGroundRoutes');
 const reviewRouter = require('./Routes/ReviewRoutes');
 app.use(cors());
+app.use(cookieParser())
 app.use(express.json());
 
 app.use('/auth', authRouter);

@@ -3,10 +3,16 @@ import classes from './Header.module.css';
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { userSliceActions } from '../../Store/user-slice';
+import { requestLogout } from '../../Store/user-slice';
+import Cookies from 'universal-cookie';
 const Header = (props) => {
+  const cookies = new Cookies();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userReducers);
+
+  const logoutHandler = () => {
+    dispatch(requestLogout(cookies));
+  };
   return (
     <header className={props.header}>
       <div className={classes.logoDiv}>
@@ -43,7 +49,7 @@ const Header = (props) => {
 
             {userInfo.isLoggedIn ? (
               <Button
-                callFunction={() => dispatch(userSliceActions.logoutUser())}
+                callFunction={logoutHandler}
                 className={`${classes.btn} ${classes.logoutBtn}`}
               >
                 Logout

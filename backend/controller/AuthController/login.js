@@ -31,14 +31,19 @@ module.exports.login = async (req, res, next) => {
 
     // generating jwt token
     const token = generateToken({ id: userExist._id.toString() });
-    res.status(200).json({
-      message: 'Successfully logged in',
-      loggedInUser: {
-        username: userExist.username,
-        userId: userExist._id,
-        token,
-      },
-    });
+    res
+      .cookie('access_token', token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({
+        message: 'Successfully logged in',
+        loggedInUser: {
+          username: userExist.username,
+          userId: userExist._id,
+          token,
+        },
+      });
   } catch (err) {
     next(err);
   }
