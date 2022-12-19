@@ -11,7 +11,6 @@ import Cookies from 'universal-cookie';
 function App() {
   const cookies = new Cookies();
   const token = cookies.get('YELP_CAMP_JWT_TOKEN') || undefined;
-  console.log(token);
   axios.defaults.headers.common = {
     Authorization: token,
   };

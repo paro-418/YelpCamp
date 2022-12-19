@@ -1,0 +1,15 @@
+.main {
+  flex-grow: 1;
+  display: flex;
+  min-height: 75vh;
+  overflow: hidden;
+  width: 80vw;
+  margin: 2rem auto;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.Loading {
+  font-size: 2rem;
+}

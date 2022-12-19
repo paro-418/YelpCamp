@@ -54,9 +54,16 @@
 .input {
   padding: 0.5rem;
 }
+
+.Link {
+  word-spacing: 0.2rem;
+}
 @media screen and (max-width: 640px) {
   .main {
     padding: 1rem 2rem;
+  }
+  .cardContainer {
+    justify-content: space-between;
   }
 }
 @media screen and (max-width: 375px) {

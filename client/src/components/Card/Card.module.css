@@ -36,3 +36,14 @@
   padding: 1rem 2rem;
   font-weight: bold;
 }
+@media screen and (max-width: 640px) {
+  .card {
+    flex-basis: 45%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .card {
+    flex-basis: 100%;
+  }
+}

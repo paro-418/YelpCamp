@@ -5,11 +5,13 @@ import Review from '../../components/Review/Review';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllReviews } from '../../Store/review-slice';
+import Loading from '../../components/Loading/Loading';
 
 const CampGroundPage = () => {
+  const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   const allReviews = useSelector((state) => state.reviewReducers.allReviews);
   const dispatch = useDispatch();
   const { campId } = useParams();
@@ -38,7 +40,7 @@ const CampGroundPage = () => {
     <Fragment>
       <Header header={classes.header} />
       {loading ? (
-        <h1>Loading...Please wait</h1>
+        <Loading />
       ) : (
         <main className={classes.main}>
           <div className={classes.mapContainer}>
@@ -65,18 +67,39 @@ const CampGroundPage = () => {
               </article>
             </div>
             <div className={classes.reviews}>
+              <h4 className={classes.reviewHeading}>Reviews</h4>
               {allReviews.map((review) => (
                 <Review key={review._id} review={review} />
               ))}
-              <Button className={classes.reviewBtn}>
-                <Link
-                  to={`/campgrounds/review/post-review/${campId}`}
-                  className={classes.Link}
-                >
-                  <img src='/Assets/Chat Bubble.svg' alt='add review button' />
-                  Leave a review
-                </Link>
-              </Button>
+              <div className={classes.btnContainer}>
+                {allReviews.length === 0 && (
+                  <div className={classes.noReview}>No reviews yet</div>
+                )}
+                {isLoggedIn ? (
+                  <Button className={classes.reviewBtn}>
+                    <Link
+                      to={`/campgrounds/review/post-review/${campId}`}
+                      className={classes.Link}
+                    >
+                      <img
+                        src='/Assets/Chat Bubble.svg'
+                        alt='add review button'
+                      />
+                      Leave a review
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button className={classes.reviewBtn}>
+                    <Link to='/login' className={classes.Link}>
+                      <img
+                        src='/Assets/Login.svg'
+                        alt='can not review please login to review'
+                      />
+                      Login to review
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </main>

@@ -18,6 +18,7 @@ const SearchPage = () => {
   const categories = useSelector(
     (state) => state.campgroundReducers.categories
   );
+  const isLoggedIn = useSelector((state) => state.userReducers.isLoggedIn);
   const categoryRef = useRef();
   useEffect(() => {
     dispatch(fetchAllCamps());
@@ -50,7 +51,16 @@ const SearchPage = () => {
             search
           </Button>
         </form>
-        <Link to='/campgrounds/add-campground'>Or add your own campground</Link>
+        {isLoggedIn ? (
+          <Link className={classes.Link} to='/campgrounds/add-campground'>
+            Or add your own campground
+          </Link>
+        ) : (
+          <Link to='/login' className={classes.Link}>
+            {' '}
+            Or Login to add your own campground
+          </Link>
+        )}
       </div>
       <div className={classes.cardContainer}>
         {allCamps.length === 0 ? (

@@ -1,17 +1,24 @@
 import React from 'react';
 import classes from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLogout } from '../../Store/user-slice';
 import Cookies from 'universal-cookie';
 const Header = (props) => {
+  const Location = useLocation();
+  const navigate = useNavigate();
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userReducers);
 
   const logoutHandler = () => {
-    dispatch(requestLogout(cookies));
+    dispatch(
+      requestLogout(cookies, {
+        currentPath: Location.pathname,
+        navigateFn: navigate,
+      })
+    );
   };
   return (
     <header className={props.header}>

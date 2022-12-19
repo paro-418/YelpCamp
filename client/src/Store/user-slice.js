@@ -26,7 +26,6 @@ const userSlice = createSlice({
     },
   },
 });
-
 export const requestLogin = (credentialsAndFunction) => {
   return async (dispatch) => {
     try {
@@ -64,12 +63,17 @@ export const requestCreate = (credentialsAndFunction) => {
   };
 };
 
-export const requestLogout = (removeFn) => {
+export const requestLogout = (removeFn, { currentPath, navigateFn }) => {
   return async (dispatch) => {
     try {
-      console.log('im running');
       removeFn.remove('YELP_CAMP_JWT_TOKEN');
       dispatch(userSliceActions.logoutUser());
+      if (
+        currentPath.includes('post-review') ||
+        currentPath.includes('add-campground')
+      ) {
+        navigateFn(-1);
+      }
     } catch (err) {
       console.log(err);
     }
