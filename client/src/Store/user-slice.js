@@ -12,6 +12,12 @@ const userSlice = createSlice({
   name: 'userSlice',
   initialState: userInitialState,
   reducers: {
+    setUser(state, action) {
+      console.log(action.payload);
+      state.isLoggedIn = true;
+      state.username = action.payload.username;
+      state.userId = action.payload.userId;
+    },
     loginUser(state, action) {
       state.isLoggedIn = true;
       state.username = action.payload.username;
@@ -26,6 +32,11 @@ const userSlice = createSlice({
     },
   },
 });
+export const savedUser = (savedUserInfo) => {
+  return (dispatch) => {
+    dispatch(userSliceActions.setUser(savedUserInfo));
+  };
+};
 export const requestLogin = (credentialsAndFunction) => {
   return async (dispatch) => {
     try {
@@ -38,6 +49,13 @@ export const requestLogin = (credentialsAndFunction) => {
       credentialsAndFunction.storeCookieFn.set(
         'YELP_CAMP_JWT_TOKEN',
         loggedInUser.token,
+        {
+          maxAge: 3600,
+        }
+      );
+      credentialsAndFunction.storeCookieFn.set(
+        'YELP_CAMP_USER_INFO',
+        response.data.loggedInUser,
         {
           maxAge: 3600,
         }
@@ -57,6 +75,13 @@ export const requestCreate = (credentialsAndFunction) => {
         credentialsAndFunction.credentials
       );
       dispatch(userSliceActions.loginUser(response.data.createdUser));
+      credentialsAndFunction.cookies.set(
+        'YELP_CAMP_USER_INFO',
+        response.data.createdUser,
+        {
+          maxAge: 3600,
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -67,6 +92,7 @@ export const requestLogout = (removeFn, { currentPath, navigateFn }) => {
   return async (dispatch) => {
     try {
       removeFn.remove('YELP_CAMP_JWT_TOKEN');
+      removeFn.remove('YELP_CAMP_USER_INFO');
       dispatch(userSliceActions.logoutUser());
       if (
         currentPath.includes('post-review') ||

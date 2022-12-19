@@ -7,13 +7,22 @@ import SearchPage from './pages/SearchPage/SearchPage.js';
 import SignUpPage from './pages/SignUpPage/SignUpPage.js';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { savedUser } from './Store/user-slice.js';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
   const cookies = new Cookies();
   const token = cookies.get('YELP_CAMP_JWT_TOKEN') || undefined;
   axios.defaults.headers.common = {
     Authorization: token,
   };
+  useEffect(() => {
+    const user = cookies.get('YELP_CAMP_USER_INFO');
+    if (!user) return;
+    dispatch(savedUser(user));
+  }, []);
   return (
     <div className='App'>
       <Routes>
