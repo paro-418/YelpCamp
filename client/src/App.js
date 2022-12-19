@@ -5,8 +5,16 @@ import CampGroundPage from './pages/CampGroundPage/CampGroundPage.js';
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SearchPage from './pages/SearchPage/SearchPage.js';
 import SignUpPage from './pages/SignUpPage/SignUpPage.js';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function App() {
+  const cookies = new Cookies();
+  const token = cookies.get('YELP_CAMP_JWT_TOKEN') || undefined;
+  console.log(token);
+  axios.defaults.headers.common = {
+    Authorization: token,
+  };
   return (
     <div className='App'>
       <Routes>

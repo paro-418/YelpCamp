@@ -65,7 +65,6 @@ export const requestCreate = (credentialsAndFunction) => {
 };
 
 export const requestLogout = (removeFn) => {
-  // console.log(removeFn.remove);
   return async (dispatch) => {
     try {
       console.log('im running');
