@@ -41,7 +41,7 @@ export const requestLogin = (credentialsAndFunction) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/auth/login',
+        '/auth/login',
         credentialsAndFunction.credentials
       );
       const loggedInUser = response.data.loggedInUser;
@@ -71,7 +71,7 @@ export const requestCreate = (credentialsAndFunction) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/auth/signup',
+        '/auth/signup',
         credentialsAndFunction.credentials
       );
       dispatch(userSliceActions.loginUser(response.data.createdUser));

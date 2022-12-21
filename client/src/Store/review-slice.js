@@ -19,7 +19,7 @@ export const postReview = (reviewAndFunction) => {
   return async () => {
     try {
       await axios.post(
-        `http://localhost:5000/campgrounds/review/post-review/${reviewAndFunction.review.reviewedCamp}`,
+        `/campgrounds/review/post-review/${reviewAndFunction.review.reviewedCamp}`,
         reviewAndFunction.review
       );
       reviewAndFunction.navigate(-1);
@@ -33,7 +33,7 @@ export const fetchAllReviews = (campId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/campgrounds/review/get-reviews/${campId}`
+        `/campgrounds/review/get-reviews/${campId}`
       );
 
       dispatch(reviewSliceActions.setAllReviews(response.data.allReviews));

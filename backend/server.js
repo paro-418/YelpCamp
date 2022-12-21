@@ -19,9 +19,13 @@ app.use('/campgrounds/review', reviewRouter);
 connectToDatabase();
 
 if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, '../client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+  });
+} else {
   app.get('/', (req, res) => {
-    app.use(express.static(path.resolve(__dirname, '../client/build')));
-    res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
+    res.send('Hello ');
   });
 }
 const server = app.listen(process.env.PORT, () => {

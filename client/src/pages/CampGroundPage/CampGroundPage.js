@@ -5,7 +5,7 @@ import Review from '../../components/Review/Review';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import { Link, useParams } from 'react-router-dom';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllReviews } from '../../Store/review-slice';
 import Loading from '../../components/Loading/Loading';
@@ -22,7 +22,7 @@ const CampGroundPage = () => {
     const fetchCampInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/campgrounds/${campId}`
+          `/campgrounds/${campId}`
         );
         setCampInfo(response.data.camp);
         setLoading(false);

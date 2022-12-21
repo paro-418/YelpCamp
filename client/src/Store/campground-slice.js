@@ -29,7 +29,7 @@ export const fetchAllCamps = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/campgrounds/all-campgrounds`
+        `/campgrounds/all-campgrounds`
       );
       dispatch(campgroundSlice.actions.setAllCamps(response.data.allCamps));
     } catch (err) {
@@ -45,7 +45,7 @@ export const fetchSpecificCamps = (category) => {
         return dispatch(fetchAllCamps());
       }
       const response = await axios.get(
-        `http://localhost:5000/campgrounds/category/${category}`
+        `/campgrounds/category/${category}`
       );
       dispatch(campgroundSlice.actions.setAllCamps(response.data.camps));
 
@@ -58,7 +58,7 @@ export const fetchSpecificCamps = (category) => {
 export const sendNewCampground = (newCampGround) => {
   return async (dispatch) => {
     try {
-      await axios.post(`http://localhost:5000/campgrounds/add-campground`, {
+      await axios.post(`/campgrounds/add-campground`, {
         campImage: newCampGround.campImage,
         campName: newCampGround.campName,
         price: newCampGround.price,
