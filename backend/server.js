@@ -18,16 +18,18 @@ app.use('/campgrounds/review', reviewRouter);
 
 connectToDatabase();
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production')
+if (true) {
   app.use(express.static(path.resolve(__dirname, '../client/build')));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
   });
-} else {
-  app.get('/', (req, res) => {
-    res.send('Hello ');
-  });
 }
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server Listening on port ${process.env.PORT}`);
+//  else {
+//   app.get('/', (req, res) => {
+//     res.send('Hello ');
+//   });
+// }
+const server = app.listen(5000, () => {
+  console.log(`Server Listening on port ${5000}`);
 });
