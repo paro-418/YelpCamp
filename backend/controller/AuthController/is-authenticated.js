@@ -8,7 +8,7 @@ module.exports.isAuthenticated = async (req, res, next) => {
       });
     }
 
-    const isValid = jwt.verify(token, 'thisisyelpcampjwtsecretkey');
+    const isValid = jwt.verify(token, process.env.JWT_SECRET_KEY);
     if (!isValid) {
       res.status(401).json({
         message: 'Not authorized',
